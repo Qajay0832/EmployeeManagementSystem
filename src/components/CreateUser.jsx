@@ -45,47 +45,6 @@ const CreateUser = () => {
     ],
     interests: [],
   });
-  const [inputError, setinputError] = useState({
-    active: true,
-    role: "",
-    name: "",
-    gender: "",
-    dob: "",
-    maritalStatus: "",
-    address: "",
-    expertise: "",
-    experience: 0,
-    images: "",
-    email: "",
-    phone: 0,
-    linkedin: "",
-    github: "",
-    country: "",
-    projects: [
-      {
-        projectName: "",
-        projectDetails: "",
-        projectUsed: "",
-        projectYear: "",
-        projectUrl: "",
-        role: "",
-      },
-    ],
-    skills: [],
-    availability: "",
-    achievements: "",
-    languages: [],
-    education: [
-      {
-        degree: "",
-        field: "",
-        institution: "",
-        year: 0,
-      },
-    ],
-    interests: [],
-  });
-  const [validate, setValidate] = useState(true);
   const ValidateName = (input) => {
     const regex = /^[A-Za-z\s]+$/;
     if (input.length === 0) {
@@ -143,149 +102,58 @@ const CreateUser = () => {
       return "";
     }
   };
-  const ValidateArray = (input,name) => {
+  const ValidateArray = (input, name) => {
     if (input.length === 0) {
       return `please provide a ${name}`;
-    } else if (input.length < (name=="skill"?3:2)) {
-      return `Please enter atleast ${name=="skill"?'3':'2'} ${name}s`;
+    } else if (input.length < (name == "skill" ? 3 : 2)) {
+      return `Please enter atleast ${name == "skill" ? "3" : "2"} ${name}s`;
     } else {
       return "";
     }
   };
-  const Validator = () => {
-    setinputError((prev) => ({
-      ...prev,
-      name: ValidateName(EmployeeDetails.name),
-    }));
-    setinputError((prev) => ({
-      ...prev,
-      gender: EmployeeDetails.gender.length > 0 ? "" : "Gender is Required", // Update gender in the state
-    }));
-    setinputError((prev) => ({
-      ...prev,
-      dob: EmployeeDetails.dob.length > 0 ? "" : "Date of birth is Required",
-    }));
-    setinputError((prev) => ({
-      ...prev,
-      email: ValidateEmail(EmployeeDetails.email),
-    }));
-    setinputError((prev) => ({
-      ...prev,
-      phone: ValidatePhone(EmployeeDetails.phone),
-    }));
-    setinputError((prev) => ({
-      ...prev,
-      linkedin: ValidateUrl(EmployeeDetails.linkedin, "linkedin"),
-    }));
-    setinputError((prev) => ({
-      ...prev,
-      github: ValidateUrl(EmployeeDetails.github, "github"),
-    }));
-    setinputError((prev) => ({
-      ...prev,
-      role: EmployeeDetails.role.length > 2 ? "" : "Role is Required",
-    }));
-    setinputError((prev) => ({
-      ...prev,
-      expertise:
-        EmployeeDetails.expertise.length > 3 ? "" : "Expertise is Required",
-    }));
-    setinputError((prev) => ({
-      ...prev,
-      experience: ValidateExperience(EmployeeDetails.experience),
-    }));
-    setinputError((prev) => ({
-      ...prev,
-      skills: ValidateArray(EmployeeDetails.skills,"skill"),
-    }));
-    setinputError((prev) => {
-      const education = [...prev.education];
-      education[0] = {
-        ...education[0],
-        institution:
-          EmployeeDetails.education[0].institution.length > 0
-            ? ""
-            : "Please Provide Instiute name",
-      };
-      return { ...prev, education: education };
-    });
-    setinputError((prev) => {
-      const education = [...prev.education];
-      education[0] = {
-        ...education[0],
-        year:
-          EmployeeDetails.education[0].year.length > 0
-            ? ""
-            : "Please Provide date of graduation",
-      };
-      return { ...prev, education: education };
-    });
-    setinputError((prev) => {
-      const projects = [...prev.projects]; // Create a shallow copy of the projects array
-      projects[0] = {
-        ...projects[0],
-        projectName:
-          EmployeeDetails.projects[0].projectName.length > 0
-            ? ""
-            : "Please Provide Project Name",
-      }; // Update projectName
-      return { ...prev, projects }; // Return the updated state
-    });
-    setinputError((prev) => {
-      const projects = [...prev.projects]; // Create a shallow copy of the projects array
-      projects[0] = {
-        ...projects[0],
-        projectDetails: EmployeeDetails.projects[0].projectDetails.length > 0
-        ? ""
-        : "Please Provide Project Details",
-      }; // Update projectName
-      return { ...prev, projects }; // Return the updated state
-    });
-    setinputError((prev) => {
-      const projects = [...prev.projects]; // Create a shallow copy of the projects array
-      projects[0] = {
-        ...projects[0],
-        projectYear: EmployeeDetails.projects[0].projectYear.length>0?"":"Please Last Used Date",
-      }; // Update projectName
-      return { ...prev, projects }; // Return the updated state
-    });
-    setinputError((prev) => {
-      const projects = [...prev.projects]; // Create a shallow copy of the projects array
-      projects[0] = {
-        ...projects[0],
-        projectUsed: EmployeeDetails.projects[0].projectUsed.length>0?"":"Please provide details where you used project!",
-      }; // Update projectName
-      return { ...prev, projects }; // Return the updated state
-    });
-    setinputError((prev) => {
-      const projects = [...prev.projects]; // Create a shallow copy of the projects array
-      projects[0] = {
-        ...projects[0],
-        projectUrl: ValidateUrl(EmployeeDetails.projects[0].projectUrl,EmployeeDetails.projects[0].projectName.length>0?EmployeeDetails.projects[0].projectName:"project"),
-      }; // Update projectName
-      return { ...prev, projects }; // Return the updated state
-    });
-    setinputError((prev) => {
-      const projects = [...prev.projects]; // Create a shallow copy of the projects array
-      projects[0] = { ...projects[0], role:  EmployeeDetails.projects[0].role.length>0?"":"Please provide your role in project!"}; // Update projectName
-      return { ...prev, projects }; // Return the updated state
-    });
-    setinputError((prev) => ({
-      ...prev,
-      languages: ValidateArray(EmployeeDetails.languages,"language"),
-    }));
-    setinputError((prev) => ({
-      ...prev,
-      interests: ValidateArray(EmployeeDetails.interests,"interest"),
-    }));
-    setinputError((prev) => ({
-      ...prev,
-      achievements: EmployeeDetails.achievements.length>0?"":"Please provide any achievement",
-    }));
-    setinputError((prev) => ({
-      ...prev,
-      address: EmployeeDetails.address.length>0?"":"Please provide your permanent address",
-    }))
+
+  const Validator = (event) => {
+    if (
+      EmployeeDetails.achievements.length === 0 ||
+      EmployeeDetails.address.length === 0 ||
+      ValidateArray(EmployeeDetails.interests, "interest").length > 0 ||
+      ValidateArray(EmployeeDetails.languages, "language").length > 0 ||
+      EmployeeDetails.projects[0].role.length === 0 ||
+      ValidateUrl(
+        EmployeeDetails.projects[0].projectUrl,
+        EmployeeDetails.projects[0].projectName.length > 0
+          ? EmployeeDetails.projects[0].projectName
+          : "project"
+      ).length > 0 ||
+      EmployeeDetails.projects[0].projectUsed.length === 0 ||
+      EmployeeDetails.projects[0].projectYear.length === 0 ||
+      EmployeeDetails.projects[0].projectDetails.length === 0 ||
+      EmployeeDetails.projects[0].projectName.length === 0 ||
+      EmployeeDetails.education[0].year.length === 0 ||
+      EmployeeDetails.education[0].institution.length === 0 ||
+      ValidateArray(EmployeeDetails.skills, "skill").length > 0 ||
+      ValidateExperience(EmployeeDetails.experience).length > 0 ||
+      EmployeeDetails.expertise.length < 4 ||
+      EmployeeDetails.role.length < 3 ||
+      ValidateUrl(EmployeeDetails.github, "github").length > 0 ||
+      ValidateUrl(EmployeeDetails.linkedin, "linkedin").length > 0 ||
+      ValidatePhone(EmployeeDetails.phone).length > 0 ||
+      ValidateEmail(EmployeeDetails.email).length > 0 ||
+      EmployeeDetails.dob.length === 0 ||
+      EmployeeDetails.gender.length === 0 ||
+      ValidateName(EmployeeDetails.name).length > 0
+    ) {
+      setShowError(true);
+      console.log("Error");
+    } else {
+      if(event==="create"){
+        createEmployee();
+      }
+      else if(event==="update"){
+        updateEmployee();
+      }
+      
+    }
   };
   const fieldArray = [
     "Computer Science And Engineering",
@@ -306,7 +174,7 @@ const CreateUser = () => {
       return { ...prev, languages }; // Update the state
     });
   };
-
+  const [showError, setShowError] = useState(false);
   const handleGenderChange = (e) => {
     const { value } = e.target; // Get the selected gender value
     setEmployeeDetails((prev) => ({
@@ -370,26 +238,32 @@ const CreateUser = () => {
   };
   const createEmployee = async () => {
     try {
-      const response = await fetch("https://employeemanagementsystemnode.onrender.com/employee", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ EmployeeDetails }),
-      });
+      const response = await fetch(
+        "https://employeemanagementsystemnode.onrender.com/employee",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ EmployeeDetails }),
+        }
+      );
     } catch (error) {
       console.log(error);
     }
   };
   const updateEmployee = async () => {
     try {
-      const response = await fetch(`https://employeemanagementsystemnode.onrender.com/employee/${id}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ EmployeeDetails }),
-      });
+      const response = await fetch(
+        `https://employeemanagementsystemnode.onrender.com/employee/${id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ EmployeeDetails }),
+        }
+      );
       navigate(`/profile/${id}`);
     } catch (error) {
       console.log(error);
@@ -413,16 +287,12 @@ const CreateUser = () => {
     console.log("simple", id);
   }, [id]);
   const CreateUser = (e) => {
-    Validator();
     e.preventDefault();
-    console.log(EmployeeDetails);
-    // createEmployee();
+    Validator("create");
   };
-
   const UpdateUser = (e) => {
     e.preventDefault();
-    console.log(EmployeeDetails);
-    // updateEmployee();
+    Validator("update")
   };
   return (
     <div className="createUserContainer">
@@ -445,8 +315,10 @@ const CreateUser = () => {
                   }
                   required
                 />
-                {inputError.name.length > 0 && (
-                  <div className="formInput error">{inputError.name}</div>
+                {showError && ValidateName(EmployeeDetails.name).length > 0 && (
+                  <div className="formInput error">
+                    {ValidateName(EmployeeDetails.name)}
+                  </div>
                 )}
               </div>
             </div>
@@ -486,13 +358,14 @@ const CreateUser = () => {
                   />
                   <label htmlFor="other">Other</label>
                 </div>
-                {inputError.gender.length > 0 ? (
-                  <div className="formInput error" style={{ gap: "0.5rem" }}>
-                    {inputError.gender}
-                  </div>
-                ) : (
-                  <></>
-                )}
+                {showError &&
+                  (EmployeeDetails.gender.length > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="formInput error" style={{ gap: "0.5rem" }}>
+                      Gender is Required
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
@@ -512,11 +385,12 @@ const CreateUser = () => {
                     }))
                   }
                 />
-                {inputError.dob > 0 ? (
-                  <></>
-                ) : (
-                  <div className="error">{inputError.dob}</div>
-                )}
+                {showError &&
+                  (EmployeeDetails.dob.length > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">Date of birth is Required</div>
+                  ))}
               </div>
             </div>
             <div className="formInput">
@@ -539,21 +413,27 @@ const CreateUser = () => {
             <div className="formInput">
               <label htmlFor="Address">Address</label>
               <div className="errorUI">
-              <input
-                type="text"
-                name="Address"
-                id="Address"
-                value={EmployeeDetails.address}
-                onChange={(e) =>
-                  setEmployeeDetails((prev) => ({
-                    ...prev,
-                    address: e.target.value,
-                  }))
-                }
-              />
-                {inputError.address.length>0?<div className="error">{inputError.address}</div>:<></>}
+                <input
+                  type="text"
+                  name="Address"
+                  id="Address"
+                  value={EmployeeDetails.address}
+                  onChange={(e) =>
+                    setEmployeeDetails((prev) => ({
+                      ...prev,
+                      address: e.target.value,
+                    }))
+                  }
+                />
+                {showError &&
+                  (EmployeeDetails.address.length > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">
+                      Please provide your permanent address
+                    </div>
+                  ))}
               </div>
-              
             </div>
           </div>
           <div className="innerSec">
@@ -602,11 +482,14 @@ const CreateUser = () => {
                     }))
                   }
                 />
-                {inputError.email.length > 0 ? (
-                  <div className="error">{inputError.email}</div>
-                ) : (
-                  <></>
-                )}
+                {showError &&
+                  (ValidateEmail(EmployeeDetails.email) > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">
+                      {ValidateEmail(EmployeeDetails.email)}
+                    </div>
+                  ))}
               </div>
             </div>
             <div className="formInput">
@@ -623,11 +506,14 @@ const CreateUser = () => {
                     }))
                   }
                 />
-                {inputError.phone.length > 0 ? (
-                  <div className="error">{inputError.phone}</div>
-                ) : (
-                  <></>
-                )}
+                {showError &&
+                  (ValidatePhone(EmployeeDetails.phone) > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">
+                      {ValidatePhone(EmployeeDetails.phone)}
+                    </div>
+                  ))}
               </div>
             </div>
             <div className="formInput">
@@ -644,11 +530,14 @@ const CreateUser = () => {
                     }))
                   }
                 />
-                {inputError.linkedin.length > 0 ? (
-                  <div className="error">{inputError.linkedin}</div>
-                ) : (
-                  <></>
-                )}
+                {showError &&
+                  (ValidateUrl(EmployeeDetails.linkedin, "linkedin") > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">
+                      {ValidateUrl(EmployeeDetails.linkedin, "linkedin")}
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
@@ -667,11 +556,14 @@ const CreateUser = () => {
                     }))
                   }
                 />
-                {inputError.github.length > 0 ? (
-                  <div className="error">{inputError.github}</div>
-                ) : (
-                  <></>
-                )}
+                {showError &&
+                  (ValidateUrl(EmployeeDetails.github, "github") > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">
+                      {ValidateUrl(EmployeeDetails.github, "github")}
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
@@ -695,11 +587,12 @@ const CreateUser = () => {
                     }))
                   }
                 />
-                {inputError.role.length > 0 ? (
-                  <div className="error">{inputError.role}</div>
-                ) : (
-                  <></>
-                )}
+                {showError &&
+                  (EmployeeDetails.role.length > 2 ? (
+                    <></>
+                  ) : (
+                    <div className="error">Role is Required</div>
+                  ))}
               </div>
             </div>
             <div className="formInput">
@@ -716,11 +609,12 @@ const CreateUser = () => {
                     }))
                   }
                 />
-                {inputError.expertise.length > 0 ? (
-                  <div className="error">{inputError.expertise}</div>
-                ) : (
-                  <></>
-                )}
+                {showError &&
+                  (EmployeeDetails.expertise.length > 3 ? (
+                    <></>
+                  ) : (
+                    <div className="error">Expertise is Required</div>
+                  ))}
               </div>
             </div>
             <div className="formInput">
@@ -737,11 +631,14 @@ const CreateUser = () => {
                     }))
                   }
                 />
-                {inputError.experience.length > 0 ? (
-                  <div className="error">{inputError.experience}</div>
-                ) : (
-                  <></>
-                )}
+                {showError &&
+                  (ValidateExperience(EmployeeDetails.experience) > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">
+                      {ValidateExperience(EmployeeDetails.experience)}
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
@@ -777,11 +674,14 @@ const CreateUser = () => {
                     value={Skill}
                     onChange={(e) => setSkill(e.target.value)}
                   />
-                  {inputError.skills.length > 0 ? (
-                    <div className="error">{inputError.skills}</div>
-                  ) : (
-                    <></>
-                  )}
+                  {showError &&
+                    (ValidateArray(EmployeeDetails.skills, "skill") > 0 ? (
+                      <></>
+                    ) : (
+                      <div className="error">
+                        {ValidateArray(EmployeeDetails.skills, "skill")}
+                      </div>
+                    ))}
                 </div>
                 <input
                   type="button"
@@ -872,13 +772,12 @@ const CreateUser = () => {
                     })
                   }
                 />
-                {inputError.education[0].institution.length > 0 ? (
-                  <div className="error">
-                    {inputError.education[0].institution}
-                  </div>
-                ) : (
-                  <></>
-                )}
+                {showError &&
+                  (EmployeeDetails.education[0].institution.length > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">Please Provide Instiute name</div>
+                  ))}
               </div>
             </div>
           </div>
@@ -905,11 +804,14 @@ const CreateUser = () => {
                     })
                   }
                 />
-                {inputError.education[0].year.length > 0 ? (
-                  <div className="error">{inputError.education[0].year}</div>
-                ) : (
-                  <></>
-                )}
+                {showError &&
+                  (EmployeeDetails.education[0].year.length > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">
+                      Please Provide date of graduation
+                    </div>
+                  ))}
               </div>
             </div>
           </div>
@@ -936,35 +838,39 @@ const CreateUser = () => {
                     })
                   }
                 />
-                {inputError.projects[0].projectName.length > 0 ? (
-                  <div className="error">
-                    {inputError.projects[0].projectName}
-                  </div>
-                ) : (
-                  <></>
-                )}
+                {showError &&
+                  (EmployeeDetails.projects[0].projectName.length > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">Please Provide Project Name</div>
+                  ))}
               </div>
             </div>
             <div className="formInput">
               <label htmlFor="projectDetails">Project Details</label>
               <div className="errorUI">
-              <input
-                type="textarea"
-                name="ProjectDetails"
-                id="ProjectDetails"
-                value={EmployeeDetails.projects[0].projectDetails}
-                onChange={(e) =>
-                  setEmployeeDetails((prev) => {
-                    const projects = [...prev.projects]; // Create a shallow copy of the projects array
-                    projects[0] = {
-                      ...projects[0],
-                      projectDetails: e.target.value,
-                    }; // Update projectName
-                    return { ...prev, projects }; // Return the updated state
-                  })
-                }
-              />
-                {inputError.projects[0].projectDetails.length>0?<div className="error">{inputError.projects[0].projectDetails}</div>:<></>}
+                <input
+                  type="textarea"
+                  name="ProjectDetails"
+                  id="ProjectDetails"
+                  value={EmployeeDetails.projects[0].projectDetails}
+                  onChange={(e) =>
+                    setEmployeeDetails((prev) => {
+                      const projects = [...prev.projects]; // Create a shallow copy of the projects array
+                      projects[0] = {
+                        ...projects[0],
+                        projectDetails: e.target.value,
+                      }; // Update projectName
+                      return { ...prev, projects }; // Return the updated state
+                    })
+                  }
+                />
+                {showError &&
+                  (EmployeeDetails.projects[0].projectDetails.length > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">Please Provide Project Details</div>
+                  ))}
               </div>
             </div>
           </div>
@@ -972,93 +878,125 @@ const CreateUser = () => {
             <div className="formInput">
               <label htmlFor="ProjectYear">ProjectYear</label>
               <div className="errorUI">
-              <input
-                type="date"
-                name="ProjectYear"
-                id="ProjectYear"
-                value={EmployeeDetails.projects[0].projectYear}
-                onChange={(e) =>
-                  setEmployeeDetails((prev) => {
-                    const projects = [...prev.projects]; // Create a shallow copy of the projects array
-                    projects[0] = {
-                      ...projects[0],
-                      projectYear: e.target.value,
-                    }; // Update projectName
-                    return { ...prev, projects }; // Return the updated state
-                  })
-                }
-              />
-                {inputError.projects[0].projectYear.length>0?<div className="error">{inputError.projects[0].projectYear}</div>:<></>}
+                <input
+                  type="date"
+                  name="ProjectYear"
+                  id="ProjectYear"
+                  value={EmployeeDetails.projects[0].projectYear}
+                  onChange={(e) =>
+                    setEmployeeDetails((prev) => {
+                      const projects = [...prev.projects]; // Create a shallow copy of the projects array
+                      projects[0] = {
+                        ...projects[0],
+                        projectYear: e.target.value,
+                      }; // Update projectName
+                      return { ...prev, projects }; // Return the updated state
+                    })
+                  }
+                />
+                {showError &&
+                  (EmployeeDetails.projects[0].projectYear.length > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">Please Provide Last Used Date</div>
+                  ))}
               </div>
-              
             </div>
 
             <div className="formInput">
               <label htmlFor="ProjectUsed">Where You Used it?</label>
               <div className="errorUI">
-              <input
-                name="ProjectUsed"
-                id="ProjectUsed"
-                value={EmployeeDetails.projects[0].projectUsed}
-                onChange={(e) =>
-                  setEmployeeDetails((prev) => {
-                    const projects = [...prev.projects]; // Create a shallow copy of the projects array
-                    projects[0] = {
-                      ...projects[0],
-                      projectUsed: e.target.value,
-                    }; // Update projectName
-                    return { ...prev, projects }; // Return the updated state
-                  })
-                }
-              />
-                {inputError.projects[0].projectUsed.length>0?<div className="error">{inputError.projects[0].projectUsed}</div>:<></>}
+                <input
+                  name="ProjectUsed"
+                  id="ProjectUsed"
+                  value={EmployeeDetails.projects[0].projectUsed}
+                  onChange={(e) =>
+                    setEmployeeDetails((prev) => {
+                      const projects = [...prev.projects]; // Create a shallow copy of the projects array
+                      projects[0] = {
+                        ...projects[0],
+                        projectUsed: e.target.value,
+                      }; // Update projectName
+                      return { ...prev, projects }; // Return the updated state
+                    })
+                  }
+                />
+                {showError &&
+                  (EmployeeDetails.projects[0].projectUsed.length > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">
+                      Please provide details where you used project!
+                    </div>
+                  ))}
               </div>
-              
             </div>
           </div>
           <div className="innerSec">
             <div className="formInput">
               <label htmlFor="projectUrl">Project Link</label>
               <div className="errorUI">
-              <input
-                type="text"
-                name="projectUrl"
-                id="projectUrl"
-                value={EmployeeDetails.projects[0].projectUrl}
-                onChange={(e) =>
-                  setEmployeeDetails((prev) => {
-                    const projects = [...prev.projects]; // Create a shallow copy of the projects array
-                    projects[0] = {
-                      ...projects[0],
-                      projectUrl: e.target.value,
-                    }; // Update projectName
-                    return { ...prev, projects }; // Return the updated state
-                  })
-                }
-              />
-                {inputError.projects[0].projectUrl.length>0?<div className="error">{inputError.projects[0].projectUrl}</div>:<></>}
+                <input
+                  type="text"
+                  name="projectUrl"
+                  id="projectUrl"
+                  value={EmployeeDetails.projects[0].projectUrl}
+                  onChange={(e) =>
+                    setEmployeeDetails((prev) => {
+                      const projects = [...prev.projects]; // Create a shallow copy of the projects array
+                      projects[0] = {
+                        ...projects[0],
+                        projectUrl: e.target.value,
+                      }; // Update projectName
+                      return { ...prev, projects }; // Return the updated state
+                    })
+                  }
+                />
+                {showError &&
+                  (ValidateUrl(
+                    EmployeeDetails.projects[0].projectUrl,
+                    EmployeeDetails.projects[0].projectName.length > 0
+                      ? EmployeeDetails.projects[0].projectName
+                      : "project"
+                  ) > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">
+                      {ValidateUrl(
+                        EmployeeDetails.projects[0].projectUrl,
+                        EmployeeDetails.projects[0].projectName.length > 0
+                          ? EmployeeDetails.projects[0].projectName
+                          : "project"
+                      )}
+                    </div>
+                  ))}
               </div>
-              
             </div>
             <div className="formInput">
               <label htmlFor="role">Role</label>
               <div className="errorUI">
-              <input
-                type="text"
-                name="role"
-                id="role"
-                value={EmployeeDetails.projects[0].role}
-                onChange={(e) =>
-                  setEmployeeDetails((prev) => {
-                    const projects = [...prev.projects]; // Create a shallow copy of the projects array
-                    projects[0] = { ...projects[0], role: e.target.value }; // Update projectName
-                    return { ...prev, projects }; // Return the updated state
-                  })
-                }
-              />
-                {inputError.projects[0].role.length>0?<div className="error">{inputError.projects[0].role}</div>:<></>}
+                <input
+                  type="text"
+                  name="role"
+                  id="role"
+                  value={EmployeeDetails.projects[0].role}
+                  onChange={(e) =>
+                    setEmployeeDetails((prev) => {
+                      const projects = [...prev.projects]; // Create a shallow copy of the projects array
+                      projects[0] = { ...projects[0], role: e.target.value }; // Update projectName
+                      return { ...prev, projects }; // Return the updated state
+                    })
+                  }
+                />
+                {showError &&
+                  (EmployeeDetails.projects[0].role.length > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">
+                      Please provide your role in project!
+                    </div>
+                  ))}
               </div>
-              
             </div>
           </div>
         </div>
@@ -1070,51 +1008,63 @@ const CreateUser = () => {
               <label htmlFor="languages">Languages</label>
               <div className="errorUI">
                 <div className="formInput">
-                <div className="formInput">
-                <input
-                  type="checkbox"
-                  value="english"
-                  checked={EmployeeDetails.languages.includes("english")}
-                  onChange={handleLanguageChange}
-                />
-                <p>English</p>
-              </div>
-              <div className="formInput">
-                <input
-                  type="checkbox"
-                  value="hindi"
-                  checked={EmployeeDetails.languages.includes("hindi")}
-                  onChange={handleLanguageChange}
-                />
-                <p>Hindi</p>
-              </div>
-              <div className="formInput">
-                <input
-                  type="checkbox"
-                  value="spanish"
-                  checked={EmployeeDetails.languages.includes("spanish")}
-                  onChange={handleLanguageChange}
-                />
-                <p>Spanish</p>
-              </div>
+                  <div className="formInput">
+                    <input
+                      type="checkbox"
+                      value="english"
+                      checked={EmployeeDetails.languages.includes("english")}
+                      onChange={handleLanguageChange}
+                    />
+                    <p>English</p>
+                  </div>
+                  <div className="formInput">
+                    <input
+                      type="checkbox"
+                      value="hindi"
+                      checked={EmployeeDetails.languages.includes("hindi")}
+                      onChange={handleLanguageChange}
+                    />
+                    <p>Hindi</p>
+                  </div>
+                  <div className="formInput">
+                    <input
+                      type="checkbox"
+                      value="spanish"
+                      checked={EmployeeDetails.languages.includes("spanish")}
+                      onChange={handleLanguageChange}
+                    />
+                    <p>Spanish</p>
+                  </div>
                 </div>
-                {inputError.languages.length>0?<div className="error">{inputError.languages}</div>:<></>}
+                {showError &&
+                  (ValidateArray(EmployeeDetails.languages, "language") > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">
+                      {ValidateArray(EmployeeDetails.languages, "language")}
+                    </div>
+                  ))}
               </div>
-              
-              
             </div>
             <div className="formInput">
               <label htmlFor="Interest">Interest</label>
               <div className="errorUI">
-              <input
-                name="Interest"
-                id="Interest"
-                value={Interest}
-                onChange={(e) => setInterest(e.target.value)}
-              />
-                {inputError.interests.length>0?<div className="error">{inputError.interests}</div>:<></>}
+                <input
+                  name="Interest"
+                  id="Interest"
+                  value={Interest}
+                  onChange={(e) => setInterest(e.target.value)}
+                />
+                {showError &&
+                  (ValidateArray(EmployeeDetails.interests, "interest") > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">
+                      {ValidateArray(EmployeeDetails.interests, "interest")}
+                    </div>
+                  ))}
               </div>
-              
+
               <input
                 type="button"
                 className="addSkillBtn"
@@ -1149,20 +1099,24 @@ const CreateUser = () => {
             <div className="formInput">
               <label htmlFor="Achievements">Achievements (if any) </label>
               <div className="errorUI">
-              <input
-                name="Achievements"
-                id="Achievements"
-                value={EmployeeDetails.achievements}
-                onChange={(e) =>
-                  setEmployeeDetails((prev) => ({
-                    ...prev,
-                    achievements: e.target.value,
-                  }))
-                }
-              />
-                {inputError.achievements.length>0?<div className="error">{inputError.achievements}</div>:<></>}
+                <input
+                  name="Achievements"
+                  id="Achievements"
+                  value={EmployeeDetails.achievements}
+                  onChange={(e) =>
+                    setEmployeeDetails((prev) => ({
+                      ...prev,
+                      achievements: e.target.value,
+                    }))
+                  }
+                />
+                {showError &&
+                  (EmployeeDetails.achievements.length > 0 ? (
+                    <></>
+                  ) : (
+                    <div className="error">Please provide any achievement</div>
+                  ))}
               </div>
-              
             </div>
           </div>
         </div>

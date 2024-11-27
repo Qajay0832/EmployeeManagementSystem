@@ -22,6 +22,7 @@ const UserList = () => {
     try {
       const response = await fetch("https://employeemanagementsystemnode.onrender.com/employee");
       const jsonColumn = await response.json();
+      
       setShowColumn(jsonColumn.filter((e) => e.id != 0));
     } catch (error) {
       console.log(error);
