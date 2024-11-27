@@ -1,0 +1,173 @@
+/* General Styles */
+.createUserContainer {
+  margin: 2rem;
+  padding: 2rem;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.createUserForm {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Heading Styles */
+.heading {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+  padding-bottom: 1rem;
+  margin-top: 0;
+}
+
+/* Section Cards */
+.formSec {
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.innerSec {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+/* Form Input Styles */
+.formInput {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  width: 100%;
+}
+
+.errorUI {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.error {
+  padding-left: 0.5rem;
+  color: red;
+  font-size: 0.8rem;
+}
+
+input,
+select,
+textarea {
+  padding: 0.8rem 1.2rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+input[type="file"] {
+  padding: 0.5rem 1rem;
+}
+
+label {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #444;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0 0.5rem;
+}
+
+/* Buttons */
+.submitBtn,
+.addSkillBtn,
+.removeSkillBtn {
+  padding: 0.6rem 1.2rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submitBtn:hover,
+.addSkillBtn:hover,
+.removeSkillBtn:hover {
+  background-color: #0056b3;
+}
+
+.addSkillBtn {
+  margin-top: 1rem;
+  width: max-content;
+}
+
+.removeSkillBtn {
+  background-color: red;
+  padding: 0.1rem 0.7rem;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  width: max-content;
+}
+
+.removeSkillBtn:hover {
+  background-color: white;
+  color: red;
+  border: 1px solid red;
+}
+
+/* Skills Section */
+.skills {
+  display: flex;
+  gap: 0.5rem;
+  border: 1px solid lightgreen;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  background-color: #e8f5e9;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skillArray {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  flex-grow: initial;
+}
+
+.skillArray .skills {
+  display: flex;
+  gap: 0.5rem;
+  background-color: #f4f6f8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .innerSec {
+    flex-direction: column;
+  }
+
+  .formInput {
+    flex-direction: column;
+    width: 100%;
+  }
+}

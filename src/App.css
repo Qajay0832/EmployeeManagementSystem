@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.nav{
+    position: sticky;
+    width: 100%;
+    background-color: black;
+}
+label{
+    font-weight: 400;
+    font-size: 2rem;
+}
+input{
+    width: 20rem;
+    height: 2.5rem;
+    border-radius: 1rem;
+    padding: 0 1rem 0 1rem;
+    font-size: 1rem;
+}
+
+input:focus {
+    border: 2px solid lightblue; /* Change to light blue on focus */
+    outline: none; /* Remove default outline (optional) */
+}
