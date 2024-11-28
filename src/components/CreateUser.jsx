@@ -3,8 +3,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./createUser.css";
 
 const CreateUser = () => {
+
   const navigate = useNavigate();
+
+  // on basis of this id if available we display either we have to create or update employee
   const { id } = useParams();
+
+  //managing employeeDetails throught state
   const [EmployeeDetails, setEmployeeDetails] = useState({
     active: true,
     role: "",
@@ -44,7 +49,149 @@ const CreateUser = () => {
       },
     ],
     interests: [],
-  });
+  });  
+
+  const [Interest, setInterest] = useState(""); 
+  const [Skill, setSkill] = useState("");
+
+  // based on this state we decide either we have show Error on click of submit 
+  const [showError, setShowError] = useState(false);
+
+  const fieldArray = [
+    "Computer Science And Engineering",
+    "Information And Technology",
+    "Data Science",
+    "Artificial Intelligence",
+    "Cyber Security",
+    "Cloud Computing",
+    "BlockChains",
+    "Robotics",
+  ];
+
+  const handleLanguageChange = (e) => {
+    const { value, checked } = e.target;
+    setEmployeeDetails((prev) => {
+      const languages = checked
+        ? [...prev.languages, value] // Add language if checked
+        : prev.languages.filter((lang) => lang !== value); // Remove language if unchecked
+      return { ...prev, languages }; // Update the state
+    });
+  };
+
+  const handleGenderChange = (e) => {
+    const { value } = e.target; // Get the selected gender value
+    setEmployeeDetails((prev) => ({
+      ...prev,
+      gender: value, // Update gender in the state
+    }));
+  };
+
+  // Handle image change (when a user selects a new image)
+  const handleImageChange = (e) => {
+    const file = e.target.files[0]; // Get the first selected file
+    if (file) {
+      // If you want to store the file object:
+      setEmployeeDetails((prev) => ({
+        ...prev,
+        images: file, // Store the file object itself
+      }));
+
+      // Or, if you want to display the image immediately:
+      const imageUrl = URL.createObjectURL(file); // Create an image URL
+      setEmployeeDetails((prev) => ({
+        ...prev,
+        images: imageUrl, // Store the image URL for immediate display
+      }));
+    }
+  };
+
+  const AddSkills = () => {
+    if (Skill && !EmployeeDetails.skills.includes(Skill)) {
+      setEmployeeDetails((prev) => ({
+        ...prev,
+        skills: [...prev.skills, Skill],
+      }));
+      setSkill(""); // Clear the input field after adding
+    }
+  };
+
+  const removeSkill = (skill, e) => {
+    e.preventDefault();
+    setEmployeeDetails((prev) => ({
+      ...prev,
+      skills: prev.skills.filter((includedskill) => skill !== includedskill),
+    }));
+  };
+  
+  const AddInterest = () => {
+    if (Interest && !EmployeeDetails.interests.includes(Interest)) {
+      setEmployeeDetails((prev) => ({
+        ...prev,
+        interests: [...prev.interests, Interest],
+      }));
+      setInterest(""); // Clear the input field after adding
+    }
+  };
+
+  const RemoveInterest = (interest, e) => {
+    e.preventDefault();
+    setEmployeeDetails((prev) => ({
+      ...prev,
+      interests: prev.interests.filter(
+        (includedinterest) => interest !== includedinterest
+      ),
+    }));
+  };
+
+  // these are the api call either we create or update employee
+  // as if we need to update employee we need details of employee for that call api fetch based on employee id
+  const createEmployee = async () => {
+    try {
+      await fetch(
+        "https://employeemanagementsystemnode.onrender.com/employee",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ EmployeeDetails }),
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const updateEmployee = async () => {
+    try {
+      await fetch(
+        `https://employeemanagementsystemnode.onrender.com/employee/${id}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ EmployeeDetails }),
+        }
+      );
+      navigate(`/profile/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const fetchEmployee = async (id) => {
+    try {
+      const response = await fetch(
+        `https://employeemanagementsystemnode.onrender.com/employeeProfile/${id}`
+      );
+      const jsonResponse = await response.json();
+      setEmployeeDetails(jsonResponse);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  //Validation function based on requirement using regex and conditional statements
   const ValidateName = (input) => {
     const regex = /^[A-Za-z\s]+$/;
     if (input.length === 0) {
@@ -112,6 +259,7 @@ const CreateUser = () => {
     }
   };
 
+// Validation function is validation check between on click of create or update employee and api calls
   const Validator = (event) => {
     if (
       EmployeeDetails.achievements.length === 0 ||
@@ -155,137 +303,21 @@ const CreateUser = () => {
       
     }
   };
-  const fieldArray = [
-    "Computer Science And Engineering",
-    "Information And Technology",
-    "Data Science",
-    "Artificial Intelligence",
-    "Cyber Security",
-    "Cloud Computing",
-    "BlockChains",
-    "Robotics",
-  ];
-  const handleLanguageChange = (e) => {
-    const { value, checked } = e.target;
-    setEmployeeDetails((prev) => {
-      const languages = checked
-        ? [...prev.languages, value] // Add language if checked
-        : prev.languages.filter((lang) => lang !== value); // Remove language if unchecked
-      return { ...prev, languages }; // Update the state
-    });
-  };
-  const [showError, setShowError] = useState(false);
-  const handleGenderChange = (e) => {
-    const { value } = e.target; // Get the selected gender value
-    setEmployeeDetails((prev) => ({
-      ...prev,
-      gender: value, // Update gender in the state
-    }));
-  };
-  const [Interest, setInterest] = useState("");
-  const [Skill, setSkill] = useState("");
-  // Handle image change (when a user selects a new image)
-  const handleImageChange = (e) => {
-    const file = e.target.files[0]; // Get the first selected file
-    if (file) {
-      // If you want to store the file object:
-      setEmployeeDetails((prev) => ({
-        ...prev,
-        images: file, // Store the file object itself
-      }));
+  
 
-      // Or, if you want to display the image immediately:
-      const imageUrl = URL.createObjectURL(file); // Create an image URL
-      setEmployeeDetails((prev) => ({
-        ...prev,
-        images: imageUrl, // Store the image URL for immediate display
-      }));
-    }
-  };
-  const AddSkills = () => {
-    if (Skill && !EmployeeDetails.skills.includes(Skill)) {
-      setEmployeeDetails((prev) => ({
-        ...prev,
-        skills: [...prev.skills, Skill],
-      }));
-      setSkill(""); // Clear the input field after adding
-    }
-  };
-  const removeSkill = (skill, e) => {
-    e.preventDefault();
-    setEmployeeDetails((prev) => ({
-      ...prev,
-      skills: prev.skills.filter((includedskill) => skill !== includedskill),
-    }));
-  };
-  const AddInterest = () => {
-    if (Interest && !EmployeeDetails.interests.includes(Interest)) {
-      setEmployeeDetails((prev) => ({
-        ...prev,
-        interests: [...prev.interests, Interest],
-      }));
-      setSkill(""); // Clear the input field after adding
-    }
-  };
-  const RemoveInterest = (interest, e) => {
-    e.preventDefault();
-    setEmployeeDetails((prev) => ({
-      ...prev,
-      interests: prev.interests.filter(
-        (includedinterest) => interest !== includedinterest
-      ),
-    }));
-  };
-  const createEmployee = async () => {
-    try {
-      const response = await fetch(
-        "https://employeemanagementsystemnode.onrender.com/employee",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ EmployeeDetails }),
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const updateEmployee = async () => {
-    try {
-      const response = await fetch(
-        `https://employeemanagementsystemnode.onrender.com/employee/${id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ EmployeeDetails }),
-        }
-      );
-      navigate(`/profile/${id}`);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const fetchEmployee = async (id) => {
-    try {
-      const response = await fetch(
-        `https://employeemanagementsystemnode.onrender.com/employeeProfile/${id}`
-      );
-      const jsonResponse = await response.json();
-      setEmployeeDetails(jsonResponse);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+  
+  
+  // this effect run when component mounted (or when id changes)
+  // if we get id through params it will show ui and functionality of update 
   useEffect(() => {
     if (id) {
       fetchEmployee(id);
     }
     console.log("simple", id);
   }, [id]);
+
+  // submit button calls of update and create hit the same function with single argument
   const CreateUser = (e) => {
     e.preventDefault();
     Validator("create");
