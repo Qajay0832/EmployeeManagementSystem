@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from 'react-router-dom'
 import CreateUser from "../components/CreateUser";
-import UserList from "../components/UserList";
+import UserList from "../pages/dashborad/UserList";
 import UserProfile from "../components/UserProfile";
 
 const Endpoints = () => {

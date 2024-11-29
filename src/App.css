@@ -1,17 +1,20 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
-.nav{
+
+.nav {
     position: sticky;
     width: 100%;
     background-color: black;
 }
-label{
+
+label {
     font-weight: 400;
     font-size: 2rem;
 }
-input{
+
+input {
     width: 20rem;
     height: 2.5rem;
     border-radius: 1rem;
@@ -20,6 +23,22 @@ input{
 }
 
 input:focus {
-    border: 2px solid lightblue; /* Change to light blue on focus */
-    outline: none; /* Remove default outline (optional) */
+    border: 2px solid lightblue;
+    /* Change to light blue on focus */
+    outline: none;
+    /* Remove default outline (optional) */
+}
+
+.activeColor {
+    padding: 0.3rem 0.3rem;
+    border: none;
+    border-radius: 50%;
+    width: max-content;
+    background-color: #00FF00;
+    height: max-content;
+}
+
+.activeColor.inactive {
+    background-color: red;
+    /* Gray color for inactive */
 }

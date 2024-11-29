@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
-import UsersTable from "./UserTable";
+import UsersTable from "../../components/userTable/UserTable";
 
 const UserList = () => {
   // Table Headers
+  // implement a visit on person workin or role column and remove it from whole row
   const columns = [
     {
-      Header: "UserId",
-      accessor: "id",
-    },
-    {
-      Header: "Name",
+      Header: "Person",
       accessor: "name", // accessor is the key for the data field
     },
     {
       Header: "Role",
       accessor: "role",
     },
+    {
+      Header:"Links",
+      accessor:"links"
+    },
+    {
+      Header: "Status",
+      accessor: "active",
+    }
   ];
   // state for managing table rows
   const [showColumn, setShowColumn] = useState([]);
@@ -42,3 +47,5 @@ const UserList = () => {
 };
 
 export default UserList;
+
+

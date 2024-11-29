@@ -157,6 +157,7 @@ const CreateUser = () => {
           body: JSON.stringify({ EmployeeDetails }),
         }
       );
+      navigate(`/`)
     } catch (error) {
       console.log(error);
     }

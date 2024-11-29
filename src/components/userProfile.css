@@ -95,18 +95,20 @@
   }
   
   .activeBtnContainer{
-    border:2px solid green;
-    max-width: 10rem;
-    min-width: 8rem;
+    border:2px solid #00FF00;
+    max-width: 5rem;
+    /* min-width: 8rem; */
     padding:0.5rem 1.5rem;
     border-radius: 1rem;
-    color: green;
+    color: #00FF00;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     cursor: pointer;
+
   }
   .activeBtnContainer:hover{
-    background-color: lightgreen;
+    background-color: #00FF00;
     color: white;
     justify-content: center;
   }
@@ -114,10 +116,12 @@
     display: none; /* Hide the color box on hover */
   }
   .activeColor{
-    padding: 0.5rem 0.8rem;
+    padding: 0.3rem 0.3rem;
     border: none;
     border-radius: 50%;
-    background-color: green;
+    width: max-content;
+    height: max-content;
+    background-color: #00FF00;
   }
   .activeColor.inactive {
     background-color: red; /* Gray color for inactive */
