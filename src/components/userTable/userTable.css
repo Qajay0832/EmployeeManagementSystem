@@ -4,6 +4,9 @@
     box-sizing: border-box;
     background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
     background-image: url('../../assests/tableBackgroundimage.jpeg');
+    height: 100vh;
+    overflow: auto;
+    scrollbar-width: none;
     background-size: cover;
     /* Ensures the image covers the whole background */
     background-position: center;
