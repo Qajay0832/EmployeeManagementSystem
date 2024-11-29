@@ -6,7 +6,6 @@
 .nav {
     position: sticky;
     width: 100%;
-    background-color: black;
 }
 
 label {
@@ -41,4 +40,13 @@ input:focus {
 .activeColor.inactive {
     background-color: red;
     /* Gray color for inactive */
+}
+
+.loaderContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f3f3f3;
 }

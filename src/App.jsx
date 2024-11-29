@@ -1,7 +1,8 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import Endpoints from "./routes/Endpoints";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/navbar/Navbar";
+import Loader from "./components/loader/Loader";
 import "./App.css";
 
 const App = () => {

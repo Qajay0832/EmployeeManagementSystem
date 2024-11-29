@@ -1,5 +1,6 @@
 import React, { useEffect, useState} from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Loader from "./loader/Loader";
 import "./userProfile.css";
 
 function App() {
@@ -63,7 +64,9 @@ function App() {
     setActivebtn((prev) => !prev)
   }
   if (user.name == undefined) {
-    return "Loading";
+    return <div className="loaderContainer">
+    <Loader/>
+  </div>;
   }
   return (
     <div className="app">

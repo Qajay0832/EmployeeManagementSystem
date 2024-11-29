@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UsersTable from "../../components/userTable/UserTable";
+import Loader from "../../components/loader/Loader";
 
 const UserList = () => {
   // Table Headers
@@ -41,7 +42,9 @@ const UserList = () => {
     fetchEmployees();
   }, []); 
   if(showColumn.length==0){
-    return "Loading" // loader is not implement yet
+    return <div className="loaderContainer">
+      <Loader/>
+    </div>
   }
   return <UsersTable columns={columns} data={showColumn} />;
 };
