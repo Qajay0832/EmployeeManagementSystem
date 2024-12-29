@@ -3,7 +3,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import "./createUser.css";
 
 const CreateUser = () => {
-
   const navigate = useNavigate();
 
   // on basis of this id if available we display either we have to create or update employee
@@ -49,12 +48,12 @@ const CreateUser = () => {
       },
     ],
     interests: [],
-  });  
+  });
 
-  const [Interest, setInterest] = useState(""); 
+  const [Interest, setInterest] = useState("");
   const [Skill, setSkill] = useState("");
 
-  // based on this state we decide either we have show Error on click of submit 
+  // based on this state we decide either we have show Error on click of submit
   const [showError, setShowError] = useState(false);
 
   const fieldArray = [
@@ -122,7 +121,7 @@ const CreateUser = () => {
       skills: prev.skills.filter((includedskill) => skill !== includedskill),
     }));
   };
-  
+
   const AddInterest = () => {
     if (Interest && !EmployeeDetails.interests.includes(Interest)) {
       setEmployeeDetails((prev) => ({
@@ -147,33 +146,27 @@ const CreateUser = () => {
   // as if we need to update employee we need details of employee for that call api fetch based on employee id
   const createEmployee = async () => {
     try {
-      await fetch(
-        "https://employeemanagementsystemnode.onrender.com/employee",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ EmployeeDetails }),
-        }
-      );
-      navigate(`/`)
+      await fetch("https://employeemanagementsystemnode.onrender.com/employee", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ EmployeeDetails }),
+      });
+      // navigate(`/`)
     } catch (error) {
       console.log(error);
     }
   };
   const updateEmployee = async () => {
     try {
-      await fetch(
-        `https://employeemanagementsystemnode.onrender.com/employee/${id}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ EmployeeDetails }),
-        }
-      );
+      await fetch(`https://employeemanagementsystemnode.onrender.com/employee/${id}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ EmployeeDetails }),
+      });
       navigate(`/profile/${id}`);
     } catch (error) {
       console.log(error);
@@ -190,7 +183,6 @@ const CreateUser = () => {
       console.log(error);
     }
   };
-
 
   //Validation function based on requirement using regex and conditional statements
   const ValidateName = (input) => {
@@ -260,7 +252,7 @@ const CreateUser = () => {
     }
   };
 
-// Validation function is validation check between on click of create or update employee and api calls
+  // Validation function is validation check between on click of create or update employee and api calls
   const Validator = (event) => {
     if (
       EmployeeDetails.achievements.length === 0 ||
@@ -295,22 +287,16 @@ const CreateUser = () => {
       setShowError(true);
       console.log("Error");
     } else {
-      if(event==="create"){
+      if (event === "create") {
         createEmployee();
-      }
-      else if(event==="update"){
+      } else if (event === "update") {
         updateEmployee();
       }
-      
     }
   };
-  
 
-
-  
-  
   // this effect run when component mounted (or when id changes)
-  // if we get id through params it will show ui and functionality of update 
+  // if we get id through params it will show ui and functionality of update
   useEffect(() => {
     if (id) {
       fetchEmployee(id);
@@ -325,7 +311,7 @@ const CreateUser = () => {
   };
   const UpdateUser = (e) => {
     e.preventDefault();
-    Validator("update")
+    Validator("update");
   };
   return (
     <div className="createUserContainer">
@@ -334,7 +320,9 @@ const CreateUser = () => {
         <div className="formSec">
           <div className="innerSec">
             <div className="formInput">
-              <label htmlFor="name">Full Name</label>
+              <label className="formLabel" htmlFor="name">
+                Full Name
+              </label>
               <div className="errorUI">
                 <input
                   name="name"
@@ -357,40 +345,63 @@ const CreateUser = () => {
             </div>
             <div>
               <div className="genderSec">
-                <label htmlFor="gender">Gender</label>
-                <div className="formInput" style={{ gap: "0.5rem" }}>
-                  <input
-                    type="radio"
-                    name="gender"
-                    id="male"
-                    value="Male"
-                    checked={EmployeeDetails.gender === "Male"}
-                    onChange={handleGenderChange}
-                  />
-                  <label htmlFor="male">Male</label>
+                <label className="formLabel" htmlFor="gender">
+                  Gender
+                </label>
+                <div className="genderInputs">
+                  <div
+                    className="formInput genderInput"
+                    style={{ gap: "0.5rem" }}
+                  >
+                    <input
+                      type="radio"
+                      className="genderRadio"
+                      name="gender"
+                      id="male"
+                      value="Male"
+                      checked={EmployeeDetails.gender === "Male"}
+                      onChange={handleGenderChange}
+                    />
+                    <label className="genderLabel" htmlFor="male">
+                      Male
+                    </label>
+                  </div>
+                  <div
+                    className="formInput genderInput"
+                    style={{ gap: "0.5rem" }}
+                  >
+                    <input
+                      type="radio"
+                      className="genderRadio"
+                      name="gender"
+                      id="female"
+                      value="Female"
+                      checked={EmployeeDetails.gender === "Female"}
+                      onChange={handleGenderChange}
+                    />
+                    <label className="genderLabel" htmlFor="female">
+                      Female
+                    </label>
+                  </div>
+                  <div
+                    className="formInput genderInput"
+                    style={{ gap: "0.5rem" }}
+                  >
+                    <input
+                      type="radio"
+                      className="genderRadio"
+                      name="gender"
+                      id="other"
+                      value="Other"
+                      checked={EmployeeDetails.gender === "Other"}
+                      onChange={handleGenderChange}
+                    />
+                    <label className="genderLabel" htmlFor="other">
+                      Other
+                    </label>
+                  </div>
                 </div>
-                <div className="formInput" style={{ gap: "0.5rem" }}>
-                  <input
-                    type="radio"
-                    name="gender"
-                    id="female"
-                    value="Female"
-                    checked={EmployeeDetails.gender === "Female"}
-                    onChange={handleGenderChange}
-                  />
-                  <label htmlFor="female">Female</label>
-                </div>
-                <div className="formInput" style={{ gap: "0.5rem" }}>
-                  <input
-                    type="radio"
-                    name="gender"
-                    id="other"
-                    value="Other"
-                    checked={EmployeeDetails.gender === "Other"}
-                    onChange={handleGenderChange}
-                  />
-                  <label htmlFor="other">Other</label>
-                </div>
+
                 {showError &&
                   (EmployeeDetails.gender.length > 0 ? (
                     <></>
@@ -404,7 +415,9 @@ const CreateUser = () => {
           </div>
           <div className="innerSec">
             <div className="formInput">
-              <label htmlFor="DOB">DOB</label>
+              <label className="formLabel" htmlFor="DOB">
+                DOB
+              </label>
               <div className="errorUI">
                 <input
                   type="date"
@@ -427,7 +440,9 @@ const CreateUser = () => {
               </div>
             </div>
             <div className="formInput">
-              <label htmlFor="MaritalStatus">MaritalStatus</label>
+              <label className="formLabel" htmlFor="MaritalStatus">
+                MaritalStatus
+              </label>
               <select
                 name="MaritalStatus"
                 value={EmployeeDetails.maritalStatus}
@@ -444,7 +459,9 @@ const CreateUser = () => {
               </select>
             </div>
             <div className="formInput">
-              <label htmlFor="Address">Address</label>
+              <label className="formLabel" htmlFor="Address">
+                Address
+              </label>
               <div className="errorUI">
                 <input
                   type="text"
@@ -471,7 +488,9 @@ const CreateUser = () => {
           </div>
           <div className="innerSec">
             <div className="formInput">
-              <label htmlFor="country">Country</label>
+              <label className="formLabel" htmlFor="country">
+                Country
+              </label>
               <select
                 name="country"
                 value={EmployeeDetails.country}
@@ -487,7 +506,9 @@ const CreateUser = () => {
               </select>
             </div>
             <div className="formInput">
-              <label htmlFor="img">Upload Your Picture</label>
+              <label className="formLabel" htmlFor="img">
+                Upload Your Picture
+              </label>
               <input
                 name="img"
                 type="file"
@@ -502,7 +523,9 @@ const CreateUser = () => {
         <div className="formSec">
           <div className="innerSec">
             <div className="formInput">
-              <label htmlFor="email">Email</label>
+              <label className="formLabel" htmlFor="email">
+                Email
+              </label>
               <div className="errorUI">
                 <input
                   name="email"
@@ -526,7 +549,9 @@ const CreateUser = () => {
               </div>
             </div>
             <div className="formInput">
-              <label htmlFor="phone">Phone No.</label>
+              <label className="formLabel" htmlFor="phone">
+                Phone No.
+              </label>
               <div className="errorUI">
                 <input
                   name="phone"
@@ -550,7 +575,9 @@ const CreateUser = () => {
               </div>
             </div>
             <div className="formInput">
-              <label htmlFor="linkdin">Linkdin</label>
+              <label className="formLabel" htmlFor="linkdin">
+                Linkdin
+              </label>
               <div className="errorUI">
                 <input
                   name="linkdin"
@@ -576,7 +603,9 @@ const CreateUser = () => {
           </div>
           <div className="innerSec">
             <div className="formInput">
-              <label htmlFor="github">Github</label>
+              <label className="formLabel" htmlFor="github">
+                Github
+              </label>
               <div className="errorUI">
                 <input
                   name="github"
@@ -607,7 +636,9 @@ const CreateUser = () => {
         <div className="formSec">
           <div className="innerSec">
             <div className="formInput">
-              <label htmlFor="role">Role</label>
+              <label className="formLabel" htmlFor="role">
+                Role
+              </label>
               <div className="errorUI">
                 <input
                   name="role"
@@ -629,7 +660,9 @@ const CreateUser = () => {
               </div>
             </div>
             <div className="formInput">
-              <label htmlFor="expertise">Expertise</label>
+              <label className="formLabel" htmlFor="expertise">
+                Expertise
+              </label>
               <div className="errorUI">
                 <input
                   name="expertise"
@@ -651,7 +684,9 @@ const CreateUser = () => {
               </div>
             </div>
             <div className="formInput">
-              <label htmlFor="experience">Experience In Years</label>
+              <label className="formLabel" htmlFor="experience">
+                Experience In Years
+              </label>
               <div className="errorUI">
                 <input
                   name="experience"
@@ -677,7 +712,9 @@ const CreateUser = () => {
           </div>
           <div className="innerSec">
             <div className="formInput">
-              <label htmlFor="availability">Availability</label>
+              <label className="formLabel" htmlFor="availability">
+                Availability
+              </label>
               <select
                 name="availability"
                 value={EmployeeDetails.availability}
@@ -692,21 +729,34 @@ const CreateUser = () => {
                 <option value="PartTime">PartTime</option>
               </select>
             </div>
-            <div
-              className="formInput"
-              style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-            >
-              <div
-                style={{ display: "flex", gap: "1rem", alignItems: "center" }}
-              >
-                <label htmlFor="Skills">Skills</label>
+            <div className="formInput">
+              <div className="formInput">
+                <label className="formLabel" htmlFor="Skills">
+                  Skills
+                </label>
+
                 <div className="errorUI">
-                  <input
-                    type="text"
-                    name="Skills"
-                    value={Skill}
-                    onChange={(e) => setSkill(e.target.value)}
-                  />
+                  <div className="arrayInput">
+                    <input
+                      className="addSkillInput"
+                      type="text"
+                      name="Skills"
+                      value={Skill}
+                      onChange={(e) => setSkill(e.target.value)}
+                    />
+                    <input
+                      type="button"
+                      className="addSkillBtn"
+                      onClick={AddSkills}
+                      value={"Add More"}
+                    ></input>
+                    <input
+                      type="button"
+                      className="addSkillBtnMobile"
+                      onClick={AddSkills}
+                      value={"Add"}
+                    ></input>
+                  </div>
                   {showError &&
                     (ValidateArray(EmployeeDetails.skills, "skill") > 0 ? (
                       <></>
@@ -716,12 +766,6 @@ const CreateUser = () => {
                       </div>
                     ))}
                 </div>
-                <input
-                  type="button"
-                  className="addSkillBtn"
-                  onClick={AddSkills}
-                  value={"Add More"}
-                ></input>
               </div>
 
               <div className="skillArray">
@@ -749,7 +793,9 @@ const CreateUser = () => {
         <div className="formSec">
           <div className="innerSec">
             <div className="formInput">
-              <label htmlFor="education">Degree</label>
+              <label className="formLabel" htmlFor="education">
+                Degree
+              </label>
               <select
                 name="education"
                 value={EmployeeDetails.education[0].degree} // Access the first element of the education array
@@ -768,7 +814,9 @@ const CreateUser = () => {
               </select>
             </div>
             <div className="formInput">
-              <label htmlFor="specialization">specialization</label>
+              <label className="formLabel" htmlFor="specialization">
+                specialization
+              </label>
               <select
                 name="specialization"
                 value={EmployeeDetails.education[0].field} // Access the first element of the education array
@@ -788,7 +836,9 @@ const CreateUser = () => {
               </select>
             </div>
             <div className="formInput">
-              <label htmlFor="institute">Institute</label>
+              <label className="formLabel" htmlFor="institute">
+                Institute
+              </label>
               <div className="errorUI">
                 <input
                   name="institute"
@@ -816,7 +866,9 @@ const CreateUser = () => {
           </div>
           <div className="innerSec">
             <div className="formInput">
-              <label htmlFor="PassYear">Year Of Graduation</label>
+              <label className="formLabel" htmlFor="PassYear">
+                Year Of Graduation
+              </label>
               <div className="errorUI">
                 <input
                   type="date"
@@ -854,7 +906,9 @@ const CreateUser = () => {
         <div className="formSec">
           <div className="innerSec">
             <div className="formInput">
-              <label htmlFor="projectName">Project Name</label>
+              <label className="formLabel" htmlFor="projectName">
+                Project Name
+              </label>
               <div className="errorUI">
                 <input
                   name="projectName"
@@ -880,7 +934,9 @@ const CreateUser = () => {
               </div>
             </div>
             <div className="formInput">
-              <label htmlFor="projectDetails">Project Details</label>
+              <label className="formLabel" htmlFor="projectDetails">
+                Project Details
+              </label>
               <div className="errorUI">
                 <input
                   type="textarea"
@@ -909,7 +965,9 @@ const CreateUser = () => {
           </div>
           <div className="innerSec">
             <div className="formInput">
-              <label htmlFor="ProjectYear">ProjectYear</label>
+              <label className="formLabel" htmlFor="ProjectYear">
+                ProjectYear
+              </label>
               <div className="errorUI">
                 <input
                   type="date"
@@ -937,7 +995,9 @@ const CreateUser = () => {
             </div>
 
             <div className="formInput">
-              <label htmlFor="ProjectUsed">Where You Used it?</label>
+              <label className="formLabel" htmlFor="ProjectUsed">
+                Where You Used it?
+              </label>
               <div className="errorUI">
                 <input
                   name="ProjectUsed"
@@ -967,7 +1027,9 @@ const CreateUser = () => {
           </div>
           <div className="innerSec">
             <div className="formInput">
-              <label htmlFor="projectUrl">Project Link</label>
+              <label className="formLabel" htmlFor="projectUrl">
+                Project Link
+              </label>
               <div className="errorUI">
                 <input
                   type="text"
@@ -1006,7 +1068,9 @@ const CreateUser = () => {
               </div>
             </div>
             <div className="formInput">
-              <label htmlFor="role">Role</label>
+              <label className="formLabel" htmlFor="role">
+                Role
+              </label>
               <div className="errorUI">
                 <input
                   type="text"
@@ -1038,35 +1102,42 @@ const CreateUser = () => {
         <div className="formSec">
           <div className="innerSec">
             <div className="formInput">
-              <label htmlFor="languages">Languages</label>
+              <label className="formLabel" htmlFor="languages">
+                Languages
+              </label>
               <div className="errorUI">
                 <div className="formInput">
-                  <div className="formInput">
-                    <input
-                      type="checkbox"
-                      value="english"
-                      checked={EmployeeDetails.languages.includes("english")}
-                      onChange={handleLanguageChange}
-                    />
-                    <p>English</p>
-                  </div>
-                  <div className="formInput">
-                    <input
-                      type="checkbox"
-                      value="hindi"
-                      checked={EmployeeDetails.languages.includes("hindi")}
-                      onChange={handleLanguageChange}
-                    />
-                    <p>Hindi</p>
-                  </div>
-                  <div className="formInput">
-                    <input
-                      type="checkbox"
-                      value="spanish"
-                      checked={EmployeeDetails.languages.includes("spanish")}
-                      onChange={handleLanguageChange}
-                    />
-                    <p>Spanish</p>
+                  <div className="genderInputs">
+                    <div className="formInput genderInput">
+                      <input
+                        type="checkbox"
+                        className="genderRadio"
+                        value="english"
+                        checked={EmployeeDetails.languages.includes("english")}
+                        onChange={handleLanguageChange}
+                      />
+                      <label className="genderLabel">English</label>
+                    </div>
+                    <div className="formInput genderInput">
+                      <input
+                        type="checkbox"
+                        className="genderRadio"
+                        value="hindi"
+                        checked={EmployeeDetails.languages.includes("hindi")}
+                        onChange={handleLanguageChange}
+                      />
+                      <label className="genderLabel">Hindi</label>
+                    </div>
+                    <div className="formInput genderInput">
+                      <input
+                        type="checkbox"
+                        className="genderRadio"
+                        value="spanish"
+                        checked={EmployeeDetails.languages.includes("spanish")}
+                        onChange={handleLanguageChange}
+                      />
+                      <label className="genderLabel">Spanish</label>
+                    </div>
                   </div>
                 </div>
                 {showError &&
@@ -1080,30 +1151,43 @@ const CreateUser = () => {
               </div>
             </div>
             <div className="formInput">
-              <label htmlFor="Interest">Interest</label>
-              <div className="errorUI">
-                <input
-                  name="Interest"
-                  id="Interest"
-                  value={Interest}
-                  onChange={(e) => setInterest(e.target.value)}
-                />
-                {showError &&
-                  (ValidateArray(EmployeeDetails.interests, "interest") > 0 ? (
-                    <></>
-                  ) : (
-                    <div className="error">
-                      {ValidateArray(EmployeeDetails.interests, "interest")}
-                    </div>
-                  ))}
+              <div className="formInput">
+                <label className="formLabel" htmlFor="Interest">
+                  Interest
+                </label>
+                <div className="errorUI">
+                  <div className="arrayInput">
+                    <input
+                      className="addSkillInput"
+                      name="Interest"
+                      id="Interest"
+                      value={Interest}
+                      onChange={(e) => setInterest(e.target.value)}
+                    />
+                    <input
+                      type="button"
+                      className="addSkillBtn"
+                      onClick={AddInterest}
+                      value={"Add More"}
+                    ></input>
+                    <input
+                      type="button"
+                      className="addSkillBtnMobile"
+                      onClick={AddInterest}
+                      value={"Add"}
+                    ></input>
+                  </div>
+                  {showError &&
+                    (ValidateArray(EmployeeDetails.interests, "interest") >
+                    0 ? (
+                      <></>
+                    ) : (
+                      <div className="error">
+                        {ValidateArray(EmployeeDetails.interests, "interest")}
+                      </div>
+                    ))}
+                </div>
               </div>
-
-              <input
-                type="button"
-                className="addSkillBtn"
-                onClick={AddInterest}
-                value={"Add More"}
-              ></input>
             </div>
             <div
               className="formInput"
@@ -1130,7 +1214,9 @@ const CreateUser = () => {
           </div>
           <div className="innerSec">
             <div className="formInput">
-              <label htmlFor="Achievements">Achievements (if any) </label>
+              <label className="formLabel" htmlFor="Achievements">
+                Achievements (if any){" "}
+              </label>
               <div className="errorUI">
                 <input
                   name="Achievements"

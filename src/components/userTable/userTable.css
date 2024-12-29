@@ -4,7 +4,6 @@
     box-sizing: border-box;
     background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
     background-image: url('../../assests/tableBackgroundimage.jpeg');
-    height: 93vh;
     overflow: auto;
     scrollbar-width: none;
     background-size: cover;
@@ -134,6 +133,18 @@
     gap: 0.3rem;
 }
 
+.noDataContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 0;
+}
+
+.noData {
+    border: none;
+    border-radius: 50%;
+}
+
 
 @media (max-width:800px) {
     .userTableContainer {
@@ -165,5 +176,8 @@
     .table td,
     .table th {
         padding-left: 0.3rem;
+    }
+    .noData{
+        width: 80%;
     }
 }

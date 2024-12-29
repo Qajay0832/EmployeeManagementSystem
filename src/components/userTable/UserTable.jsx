@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import LinkedinIcon from "../../assests/linkedinIcon.svg";
 import GithubIcon from "../../assests/githubIcon.svg";
+import Nodata from "../../assests/nodata.png";
 import "./userTable.css";
 
 const UsersTable = ({ columns, data }) => {
@@ -100,7 +101,6 @@ const UsersTable = ({ columns, data }) => {
   };
   return (
     <div className="userTableContainer">
-      {/* <LinkedinIcon/> ese hi hota h */}
       <div className="searchContainer">
         <input
           className="tableSearchInput"
@@ -111,58 +111,67 @@ const UsersTable = ({ columns, data }) => {
         />
         <button className="tableSearchBtn">Search</button>
       </div>
-      <table className="table">
-        <thead className="tableHead">
-          <tr>
-            {/* Render column headers using the 'Header' property */}
-            {columns.map((column, index) => (
-              <th key={index}>{column.Header}</th>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="tableBody">
-          {/* Render rows based on data */}
-          {/* Render the alphabet row, followed by the data rows */}
-          {rowsWithAlphabet.map((group, groupIndex) => (
-            <React.Fragment key={groupIndex}>
-              {/* Render the alphabet row */}
-              <tr>
-                <td
-                  colSpan={columns.length}
-                  className="alphabetRow"
-                  onClick={() => handleAlphabetClick(group.alphabet)}
-                >
-                  {group.alphabet} {/* Alphabet Row */}
-                  <div>{expandedGroup.includes(group.alphabet) ? "" : ""}</div>
-                </td>
-              </tr>
+      {filteredData.length === 0 ? (
+        <div className="noDataContainer">
+          <img className="noData" src={Nodata} alt="no data found" />
+          {/* <b className="">No Data Found</b> */}
+        </div>
+      ) : (
+        <table className="table">
+          <thead className="tableHead">
+            <tr>
+              {/* Render column headers using the 'Header' property */}
+              {columns.map((column, index) => (
+                <th key={index}>{column.Header}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody className="tableBody">
+            {/* Render rows based on data */}
+            {/* Render the alphabet row, followed by the data rows */}
+            {rowsWithAlphabet.map((group, groupIndex) => (
+              <React.Fragment key={groupIndex}>
+                {/* Render the alphabet row */}
+                <tr>
+                  <td
+                    colSpan={columns.length}
+                    className="alphabetRow"
+                    onClick={() => handleAlphabetClick(group.alphabet)}
+                  >
+                    {group.alphabet} {/* Alphabet Row */}
+                    <div>
+                      {expandedGroup.includes(group.alphabet) ? "" : ""}
+                    </div>
+                  </td>
+                </tr>
 
-              {/* Render the actual data rows */}
-              {/* {setPage(pagination(group.alphabet,group.data))} */}
-              {expandedGroup.includes(group.alphabet) &&
-                group.data.map((row, rowIndex) => (
-                  <tr key={rowIndex} className="tableRow">
-                    {columns.map((column, columnIndex) => {
-                      return (
-                        <td
-                          key={columnIndex}
-                          className="routeRows"
-                          onClick={() => ShowProfile(row.id, column)}
-                        >
-                          {column.accessor === "links" ||
-                          column.accessor === "active" ||
-                          column.accessor === "name"
-                            ? Cell(row, column.accessor)
-                            : row[column.accessor]}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
+                {/* Render the actual data rows */}
+                {/* {setPage(pagination(group.alphabet,group.data))} */}
+                {expandedGroup.includes(group.alphabet) &&
+                  group.data.map((row, rowIndex) => (
+                    <tr key={rowIndex} className="tableRow">
+                      {columns.map((column, columnIndex) => {
+                        return (
+                          <td
+                            key={columnIndex}
+                            className="routeRows"
+                            onClick={() => ShowProfile(row.id, column)}
+                          >
+                            {column.accessor === "links" ||
+                            column.accessor === "active" ||
+                            column.accessor === "name"
+                              ? Cell(row, column.accessor)
+                              : row[column.accessor]}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  ))}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

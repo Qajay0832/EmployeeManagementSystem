@@ -1,265 +1,378 @@
+
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.userProfileContainer {
+  max-width: 75%;
+  /* background-color: grey; */
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3rem;
+  margin-bottom: 2rem;
+
+}
+
+.profileSection-1 {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+
+.profileCard {
+  height: 19rem;
+  width: 15rem;
+  background-color: white;
+  border-radius: 0.6rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.imageBackground {
+  background-color: grey;
+  width: 100%;
+  height: 4rem;
+  border-radius: 0.6rem 0.6rem 0 0;
+}
+
+.userImage {
+  border: 2px solid white;
+  position: relative;
+  height: 4.5rem;
+  width: 4.5rem;
+  border-radius: 50%;
+  opacity: 1;
+  object-fit: cover;
+  margin: -2rem 0 0 0.5rem;
+}
+
+.personalDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  justify-content: center;
+  margin: 0 !important;
+  padding: 0 0 0.5rem 0.5rem !important;
+}
+
+.profilecardName {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.profilecardDetails {
+  font-size: 0.8rem;
+  color: grey;
+  display: flex;
+  gap: 3rem;
+  font-weight: 600;
+}
+
+.contactCard {
+  height: 19rem;
+  width: 35rem;
+  background-color: white;
+  border-radius: 0.6rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0.5rem;
+}
+
+.contactHeading {
+  margin-bottom: 1rem;
+}
+
+.contactCardDetails {
+  display: flex;
+  gap: 2rem;
+  align-items: baseline
+}
+
+.educationCard {
+  height: 19rem;
+  width: 18rem;
+  background-color: white;
+  border-radius: 0.6rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0.5rem;
+}
+
+.projectsCard {
+  height: 20rem;
+  width: 50rem;
+  background-color: white;
+  border-radius: 0.6rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0.5rem;
+}
+
+.projectName {
+  font-size: 1.32rem;
+}
+
+.professionCard {
+  height: 20rem;
+  width: 18rem;
+  background-color: white;
+  border-radius: 0.6rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0.5rem;
+}
+
+.professionCard ul {
+  list-style-type: none;
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.extraDetailsCard {
+  height: 20rem;
+  width: 18rem;
+  background-color: white;
+  border-radius: 0.6rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem 0.5rem;
+}
+.socialDetails{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  gap: 2rem;
+}
+
+.buttonSection {
+display: flex;
+justify-content: space-between;
+}
+.buttonContainer{
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+.activeBtnContainer{
+  border-radius: 0.5rem;
+  padding: 0.7rem 2rem;
+  width: 10rem;
+  text-align: center;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: #00FF00;
+}
+.activeBtnContainer:hover{
+  padding: 0.6rem 2rem;
+  border: 0.1rem solid #00FF00 ;
+  background-color: white;
+  color: #00FF00;
+}
+.inactiveBtn{
+  background-color: #ff0000;
+}
+.inactiveBtn:hover{
+  background-color: white;
+  border: 0.1rem solid #ff0000;
+  color: #ff0000;
+}
+
+.editBtn{
+  background-color: #2c409e;
+}
+.editBtn:hover{
+  background-color: white;
+  border: 0.1rem solid #2c409e;
+  color: #2c409e;
+}
+.deleteBtn{
+  background-color:#ff0000;
+}
+.deleteBtn:hover{
+  background-color: white;
+  border: 0.1rem solid #ff0000;
+  color: #ff0000;
+}
+/* Basic Styles for Alert Box */
+.alert-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-width: 400px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 10px;
+  /* display: none;   */
+  z-index: 9999;  
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+
+/* Alert Box (Message and Buttons) */
+.alert {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.alert-message {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.close-btn {
+  background-color: transparent;
+  color: white;
+  border: 1px solid white;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.close-btn:hover {
+  background-color: white;
+  color: #2c409e;
+  border-color: #2c409e;
+}
+
+
+.confirm {
+  background-color: #ff0000;
+  border: none;
+  padding: 0.7rem 1.5rem;
+}
+
+.confirm:hover {
+  background-color: white;
+  color: #ff0000;
+  border: 0.1rem solid #ff0000;
+  padding: 0.6rem 1.4rem;
+}
+
+@media (max-width: 1200px) {
+  .userProfileContainer {
+    max-width: 85%;
+  }
+
+  .contactCard, .educationCard, .projectsCard, .professionCard, .extraDetailsCard {
+    width: 100%;
+  }
+
+  .projectsCard {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 800px) {
+  .userProfileContainer {
+    max-width: 90%;
+  }
+
+  .profileSection-1 {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .profileCard {
+    width: 100%;
+    height: auto;
+  }
+
+  .contactCard, .educationCard, .projectsCard, .professionCard, .extraDetailsCard {
+    width: 100%;
+    height: auto;
+  }
+
+  .buttonContainer {
+    gap: 1rem;
   }
   
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
-  }
-  
-  .app {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .profile {
+  .activeBtnContainer,
+  .inactiveBtn,
+  .editBtn,
+  .deleteBtn {
+    width: 6rem;
+    font-size: 0.9rem;
+    padding: 0.6rem 0rem;
     text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  .profile-img {
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin-bottom: 20px;
-  }
-  
-  h1 {
-    font-size: 2rem;
-    margin: 10px 0;
-  }
-  
-  h3 {
-    font-size: 1.2rem;
-    color: gray;
-  }
-  
-  p {
-    font-size: 1rem;
-    margin: 5px 0;
-  }
-  
-  .details .section {
-    margin-bottom: 30px;
-  }
-  
-  .details h2 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-  }
-  
-  .details ul {
-    list-style-type: none;
-  }
-  
-  .details li {
-    font-size: 1rem;
-    margin: 5px 0;
-  }
-  
-  .project {
-    margin-bottom: 15px;
-  }
-  
-  .project h3 {
-    font-size: 1.3rem;
-  }
-  
-  .project p {
-    font-size: 1rem;
-  }
-  
-  .project a {
-    color: #0073e6;
-    text-decoration: none;
-  }
-  
-  .social-links {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-  }
-  
-  .social-links a {
-    text-decoration: none;
-    color: #0073e6;
-    font-weight: bold;
-  }
-  
-  .activeBtnContainer{
-    border:2px solid #00FF00;
-    max-width: 5rem;
-    /* min-width: 8rem; */
-    padding:0.5rem 1.5rem;
-    border-radius: 1rem;
-    color: #00FF00;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-
-  }
-  .activeBtnContainer:hover{
-    background-color: #00FF00;
-    color: white;
-    justify-content: center;
-  }
-  .activeBtnContainer:hover .activeColor {
-    display: none; /* Hide the color box on hover */
-  }
-  .activeColor{
-    padding: 0.3rem 0.3rem;
-    border: none;
-    border-radius: 50%;
-    width: max-content;
-    height: max-content;
-    background-color: #00FF00;
-  }
-  .activeColor.inactive {
-    background-color: red; /* Gray color for inactive */
-  }
-  .activeBtnContainer.inactive{
-    border:2px solid red;
-    color: red;
-  }
-  .activeBtnContainer:hover.inactive{
-    background-color: red;
-    color: white;
   }
 
-  .editBtn {
-    padding: 0.6rem 1.2rem;
-    justify-content: center;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    border: 2px solid rgb(38, 102, 204);
-    background-color: white;
-    color: blue;
-  }
-  .deleteBtn{
-    justify-content: center;
-    background-color: white;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    border: 2px solid red;
-    color: red;
-  }
+  .activeBtnContainer:hover,
+  .inactiveBtn:hover,
+  .editBtn:hover,
   .deleteBtn:hover {
-    padding: 0.18rem 1rem;
-    background-color: red;
-    color: white;
-    font-size: 1.5rem;
-    transition: font-size background-color 0.3s;
+    padding: 0.5rem 0;
   }
-  .editBtn:hover {
-    padding: 0.18rem 1rem;
-    background-color: #0056b3;
-    color: white;
-    font-size: 1.5rem;
-    transition: font-size background-color 0.3s;
+  .alert {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+/* Responsive styles for very small screens (max-width: 350px) */
+@media (max-width: 350px) {
+  .userProfileContainer {
+    max-width: 100%;
+    padding: 1rem;
   }
 
-  .profileBtn{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 4rem;
+  .profileCard, 
+  .contactCard, 
+  .educationCard, 
+  .projectsCard, 
+  .professionCard, 
+  .extraDetailsCard {
+    width: 100%;
+    padding: 0.5rem;
+    height: auto;
+    margin: 0.5rem 0;
   }
-  .alert-container {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
+
+  .profilecardName {
+    font-size: 1.2rem;
   }
-  
+
+  .profilecardDetails {
+    font-size: 0.7rem;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .buttonSection {
+    gap: 1rem;
+  }
+
+  .activeBtnContainer,
+  .inactiveBtn,
+  .editBtn,
+  .deleteBtn {
+    width: 6rem;
+    font-size: 0.9rem;
+    padding: 0.6rem 0rem;
+    text-align: center;
+  }
+
+  .activeBtnContainer:hover,
+  .inactiveBtn:hover,
+  .editBtn:hover,
+  .deleteBtn:hover {
+    padding: 0.5rem 0;
+  }
   .alert {
-    position: relative;
-    top: 10rem;
-    background-color: #f44336;  /* Red background */
-    color: white;
-    padding: 16px;
-    border-radius: 5px;
-    width: 90%; /* Default width for smaller screens */
-    max-width: 600px; /* Max width for larger screens */
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    gap: 2rem;
   }
-  
-  .alert-message {
-    font-size: 16px;
-  }
-  
-  .close-btn {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 18px;
-    cursor: pointer;
-    padding: 0.2rem 1rem;
-  }
-  .confirm:hover{
-    background-color: white;
-    color: #f44336;
-    padding: 0.2rem 1rem;
-    border:1px solid white;
-    border-radius: 1rem;
-  }
-  
-  /* Media queries for responsiveness */
-  @media (min-width: 600px) {
-    .alert {
-      min-width: 30rem;  /* Larger width for medium screens and above */
-    }
-  }
-  
-  @media (min-width: 768px) {
-    .alert {
-      width: 40%;  /* Even larger width for larger screens */
-    }
-  }
-  @media (max-width: 500px) {
-    .alert {
-      font-size: 14px;  /* Smaller text on smaller screens */
-      width: 100vw;
-      top:2.2rem;  /* Even larger width for larger screens */
-    }
-    .activeBtnContainer{
-      border:1px solid green;
-      max-width: 5rem;
-      font-size: 14px;
-      min-width: max-content;
-    }
-  }
-  
-  @media (max-width: 375px) {
-    .alert {
-      font-size: 14px;  /* Smaller text on smaller screens */
-      width: 100vw;
-      top:2.2rem;
-    }
-  }
-  
-  /* Optional animation for showing alert */
-  @keyframes fadeIn {
-    0% {
-      opacity: 0;
-      transform: translateX(-50%) translateY(-20px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-  }
+}

@@ -1,10 +1,8 @@
 /* General Styles */
 .createUserContainer {
-  margin: 2rem;
+  margin: 2rem auto;
   padding: 2rem;
   max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
   background-color: #f8f9fa;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
@@ -117,8 +115,18 @@ input[type="checkbox"] {
 }
 
 .addSkillBtn {
-  margin-top: 1rem;
   width: max-content;
+}
+.addSkillBtnMobile{
+  padding: 0.2rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: max-content !important;
+  display: none;
 }
 
 .removeSkillBtn {
@@ -150,8 +158,7 @@ input[type="checkbox"] {
 .skillArray {
   display: flex;
   gap: 0.5rem;
-  flex-wrap: wrap;
-  flex-grow: initial;
+  flex-direction: row;
 }
 
 .skillArray .skills {
@@ -159,15 +166,83 @@ input[type="checkbox"] {
   gap: 0.5rem;
   background-color: #f4f6f8;
 }
+.arrayInput{
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .innerSec {
+
+
+@media (min-width:350px) and  (max-width: 650px) {
+  .createUserForm {
+    display: flex;
     flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+    text-align: left;
+  }
+  .formInput {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem !important;
+  }
+  .genderInputs{
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  .genderInput{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0 !important;
+    flex-grow: initial;
+    padding-left: 0 !important;
+    margin: 0 !important;
+  }
+  .formLabel{
+    font-weight: 600;
+    font-size: 1.2rem !important;
+  }
+  .genderLabel{
+    font-weight: 400;
+    font-size: 0.9rem !important;
+    padding-top:0.6rem !important ;
+  }
+  .genderRadio{
+    width: 1rem !important;
+    display: inline;
+  }
+  .addSkillBtn{
+    display: none;
+  }
+  .addSkillBtnMobile{
+    display: inline;
+  }
+  .addSkillInput{
+    width: 10rem !important;
+  }
+  .removeSkillBtn{
+  font-size: 0.8rem !important;
+  width: 2rem !important;
+  } 
+
+  input,
+  select,
+  textarea {
+    padding: 0 0.3rem !important;
+    width: 15rem !important;
+    font-size: 0.9rem !important;
+    height: 2rem !important;
   }
 
-  .formInput {
-    flex-direction: column;
-    width: 100%;
+  input[type="checkbox"] {
+    width: 1rem !important;
+  }
+  .skillArray{
+    flex-wrap: wrap;
+    flex-grow: initial;
   }
 }

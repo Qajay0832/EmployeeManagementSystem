@@ -4,6 +4,7 @@ import Endpoints from "./routes/Endpoints";
 import Navbar from "./components/navbar/Navbar";
 import Loader from "./components/loader/Loader";
 import "./App.css";
+import Footer from "./components/footer/footer";
 
 const App = () => {
   return (
@@ -12,6 +13,9 @@ const App = () => {
         <Navbar />
       </div>
       <Endpoints />
+     
+        <Footer/>
+      
     </BrowserRouter>
   );
 };

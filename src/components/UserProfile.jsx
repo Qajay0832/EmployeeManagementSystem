@@ -1,7 +1,10 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Loader from "./loader/Loader";
 import "./userProfile.css";
+import DefaultImg from "../assests/ajay.jpg";
+import LinkedinIcon from "../assests/linkedinIcon.svg";
+import GithubIcon from "../assests/githubIcon.svg";
 
 function App() {
   const { id } = useParams();
@@ -24,142 +27,154 @@ function App() {
   };
   const deleteEmployee = async () => {
     try {
-      const response = await fetch(
-        `https://employeemanagementsystemnode.onrender.com/employee/${id}`
-      ,{
-        method:"DELETE"
+      const response = await fetch(`https://employeemanagementsystemnode.onrender.com/employee/${id}`, {
+        method: "DELETE",
       });
-      const res=await res.json();
+      const res = await res.json();
       return res;
     } catch (error) {
       console.log(error);
-      return error
+      return error;
     }
   };
   useEffect(() => {
     fetchEmployee();
   }, []);
-  const navigate=useNavigate();
-  const [activeBtn, setActivebtn] = useState(true);
-  const handleEdit=()=>{
-    navigate(`/createuser/${id}`)
-  }
-  const handleDelete=async()=>{
+  const navigate = useNavigate();
+  const [activeBtn, setActivebtn] = useState(false);
+  const handleEdit = () => {
+    navigate(`/createuser/${id}`);
+  };
+  const handleDelete = async () => {
     deleteEmployee();
-    navigate("/")
-  }
-  const ActivateEmployee=async(active)=>{
-    try{
-      const response=await fetch(`https://employeemanagementsystemnode.onrender.com/employee/${active}/${id}`)
-      const res=await response.json();
+    navigate("/");
+  };
+  const ActivateEmployee = async (active) => {
+    try {
+      const response = await fetch(
+        `https://employeemanagementsystemnode.onrender.com/employee/${active}/${id}`
+      );
+      const res = await response.json();
       return res;
-    }
-    catch(error){
+    } catch (error) {
       console.log(error);
       return error;
     }
-  }
-  const handleActiveEmployee=() => {
-    ActivateEmployee(!activeBtn)
-    setActivebtn((prev) => !prev)
-  }
+  };
+  const handleActiveEmployee = () => {
+    ActivateEmployee(!activeBtn);
+    setActivebtn((prev) => !prev);
+  };
   if (user.name == undefined) {
-    return <div className="loaderContainer">
-    <Loader/>
-  </div>;
+    return (
+      <div className="loaderContainer">
+        <Loader />
+      </div>
+    );
   }
   return (
-    <div className="app">
+    <div className="userProfileContainer">
       {showAlert && (
         <div className="alert-container">
           <div className="alert">
             <span className="alert-message">Are You Sure!</span>
-            <button className="close-btn confirm" onClick={handleDelete}>Confirm</button>
-            <button className="close-btn" onClick={toggleAlert}>X</button>
+            <button className="close-btn confirm" onClick={handleDelete}>
+              Confirm
+            </button>
+            <button className="close-btn" onClick={toggleAlert}>
+              X
+            </button>
           </div>
         </div>
       )}
-      <div className="profileBtn">
-        <div
-          className={`activeBtnContainer ${activeBtn ? "" : "inactive"}`}
-          onClick={handleActiveEmployee}
-        >
-          <div className={`activeColor ${activeBtn ? "" : "inactive"}`}></div>
-          {activeBtn ? "Active" : "InActive"}
+      <div className="profileSection-1">
+        <div className="profileCard">
+          <div className="imageBackground"></div>
+          <img className="userImage" src={DefaultImg} alt="UserImage" />
+          <div className="personalDetails">
+            <h3 className="profilecardName">{user.name}</h3>
+            <div className="profilecardDetails">
+              {user.gender} <span>{user.dob}</span>
+            </div>
+            <div className="profilecardDetails">{user.maritalStatus}</div>
+            <div className="profilecardDetails">{user.address}</div>
+          </div>
         </div>
-        <div onClick={handleEdit} className={`activeBtnContainer editBtn`} >
-          Edit
+        <div className="contactCard">
+          <h3 className="contactHeading">Contact Details</h3>
+          <hr />
+          <p className="contactCardDetails">
+            <strong>Email :</strong>
+            <span className="profilecardDetails">{user.email}</span>
+          </p>
+          <p className="contactCardDetails">
+            <strong>Phone :</strong>{" "}
+            <span className="profilecardDetails">{user.phone}</span>
+          </p>
+          <p className="contactCardDetails">
+            <strong>Address :</strong>{" "}
+            <span className="profilecardDetails">{user.address}</span>
+          </p>
+          <p className="contactCardDetails">
+            <strong>Country :</strong>{" "}
+            <span className="profilecardDetails">{user.country}</span>
+          </p>
         </div>
-        <div onClick={()=>toggleAlert()} className={`activeBtnContainer deleteBtn`} >
-          Delete
+        <div className="educationCard">
+          <h3 className="contactHeading">Education Details</h3>
+          <hr />
+          <p className="contactCardDetails">
+            <strong>Degree:</strong>
+            <span className="profilecardDetails">
+              {user.education[0].degree}
+            </span>
+          </p>
+          <p className="contactCardDetails">
+            <strong>Field:</strong>
+            <span className="profilecardDetails">
+              {user.education[0].field}
+            </span>
+          </p>
+          <p className="contactCardDetails">
+            <strong>Institution:</strong>
+            <span className="profilecardDetails">
+              {user.education[0].institution}
+            </span>
+          </p>
+          <p className="contactCardDetails">
+            <strong>Year of Graduation:</strong>
+            <span className="profilecardDetails">{user.education[0].year}</span>
+          </p>
         </div>
       </div>
-
-      <div className="profile">
-        <img src={user.images} alt="Profile" className="profile-img" />
-        <h1>{user.name}</h1>
-        <h3>{user.role}</h3>
-        <p>
-          <strong>Gender:</strong> {user.gender}
-        </p>
-        <p>
-          <strong>Date of Birth:</strong> {user.dob}
-        </p>
-        <p>
-          <strong>Marital Status:</strong> {user.maritalStatus}
-        </p>
-        <p>
-          <strong>Location:</strong> {user.address}
-        </p>
-        <p>
-          <strong>Email:</strong> {user.email}
-        </p>
-        <p>
-          <strong>Phone:</strong> {user.phone}
-        </p>
-        <p>
-          <strong>Country:</strong> {user.country}
-        </p>
-        <p>
-          <strong>Timezone:</strong> {user.timezone}
-        </p>
-      </div>
-      <div className="details">
-        <div className="section">
-          <h2>Skills</h2>
-          <ul>
-            {user.skills.map((skill, index) => (
-              <li key={index}>{skill}</li>
-            ))}
-          </ul>
-        </div>
-
-        {/* <div className="section">
-          <h2>Certifications</h2>
-          <ul>
-            {user.certification &&
-              user.certifications.map((cert, index) => (
-                <li key={index}>{cert}</li>
-              ))}
-          </ul>
-        </div> */}
-
-        <div className="section">
-          <h2>Projects</h2>
+      <div className="profileSection-1">
+        <div className="projectsCard">
+          <h3 className="contactHeading">Projects</h3>
+          <hr />
           {user.projects.map((project, index) => (
             <div key={index} className="project">
-              <h3>{project.projectName}</h3>
-              <p>
-                <strong>Role:</strong> {project.role}
+              <h4 className="projectName">{project.projectName}</h4>
+              <p className="contactCardDetails">
+                <strong>Role:</strong>{" "}
+                <span className="profilecardDetails">{project.role}</span>
               </p>
-              <p>
-                <strong>Details:</strong> {project.projectDetails}
+              <p className="contactCardDetails">
+                <strong>Details:</strong>
+                <span className="profilecardDetails">
+                  {project.projectDetails}{" "}
+                </span>
               </p>
-              <p>
-                <strong>Used in:</strong> {project.projectUsed}
+              <p className="contactCardDetails">
+                <strong>Used in:</strong>
+                <span className="profilecardDetails">
+                  {project.projectUsed}
+                </span>
               </p>
-              <p>
-                <strong>Year:</strong> {project.projectYear}
+              <p className="contactCardDetails">
+                <strong>Year:</strong>
+                <span className="profilecardDetails">
+                  {project.projectYear}{" "}
+                </span>
               </p>
               <a
                 href={project.projectUrl}
@@ -171,54 +186,86 @@ function App() {
             </div>
           ))}
         </div>
-
-        <div className="section">
-          <h2>Education</h2>
-          <p>
-            <strong>Degree:</strong> {user.education[0].degree}
+        <div className="professionCard">
+          <h3 className="contactHeading">Professional Details</h3>
+          <hr />
+          <h4 className="projectName userRole">{user.role}</h4>
+          <p className="contactCardDetails">
+            <strong>Specialization:</strong>
+            <span className="profilecardDetails">{user.expertise}</span>
           </p>
-          <p>
-            <strong>Field:</strong> {user.education[0].field}
+          <p className="contactCardDetails">
+            <strong>Skills:</strong>
+            <span className="profilecardDetails">
+              <ul>
+                {user.skills.map((skill, index) => (
+                  <li key={index}>{skill.toUpperCase()}</li>
+                ))}
+              </ul>
+            </span>
           </p>
-          <p>
-            <strong>Institution:</strong> {user.education[0].institution}
+          <p className="contactCardDetails">
+            <strong>Languages:</strong>
+            <span className="profilecardDetails">
+              <ul>
+                {user.languages.map((language, index) => (
+                  <li key={index}>{language.toUpperCase()}</li>
+                ))}
+              </ul>
+            </span>
           </p>
-          <p>
-            <strong>Year of Graduation:</strong> {user.education[0].year}
-          </p>
-        </div>
-
-        <div className="section">
-          <h2>Achievements</h2>
-          <p>{user.achievements}</p>
-        </div>
-
-        <div className="section">
-          <h2>Interests</h2>
-          <ul>
-            {user.interests.map((interest, index) => (
-              <li key={index}>{interest}</li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="section">
-          <h2>Languages</h2>
-          <ul>
-            {user.languages.map((language, index) => (
-              <li key={index}>{language}</li>
-            ))}
-          </ul>
         </div>
       </div>
+      <div className="profileSection-1">
+        <div className="extraDetailsCard">
+          <h3 className="contactHeading">Other Details</h3>
+          <hr />
 
-      <div className="social-links">
-        <a href={user.linkedin} target="_blank" rel="noopener noreferrer">
-          LinkedIn
-        </a>
-        <a href={user.github} target="_blank" rel="noopener noreferrer">
-          GitHub
-        </a>
+          <p className="contactCardDetails">
+            <strong>Interests:</strong>
+            <span className="profilecardDetails">
+              <ul>
+                {user.interests.map((interest, index) => (
+                  <li key={index}>{interest.toUpperCase()}</li>
+                ))}
+              </ul>
+            </span>
+          </p>
+          <p className="contactCardDetails">
+            <strong>Achievements:</strong>
+            <span className="profilecardDetails">{user.achievements}</span>
+          </p>
+          <p></p>
+          <p className="socialDetails">
+            <a href={user.linkedin}>
+              <img className="footerLink" src={LinkedinIcon} />
+            </a>
+            <a href={user.github}>
+              <img className="footerLink footergit" src={GithubIcon} />
+            </a>
+          </p>
+        </div>
+      </div>
+      <div className="buttonSection">
+        <div></div>
+        <div className="buttonContainer">
+          {console.log("status",user.active)}
+          <div
+            className={`activeBtnContainer ${activeBtn||user.active ? "" : "inactiveBtn"}`}
+            onClick={handleActiveEmployee}
+          >
+            {activeBtn||user.active? "Active" : "InActive"}
+          </div>
+          <div onClick={handleEdit} className={`activeBtnContainer editBtn`}>
+            Edit
+          </div>
+          <div
+            onClick={() => toggleAlert()}
+            className={`activeBtnContainer deleteBtn`}
+          >
+            Delete
+          </div>
+        </div>
       </div>
     </div>
   );
