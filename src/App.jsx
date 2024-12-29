@@ -2,9 +2,8 @@ import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import Endpoints from "./routes/Endpoints";
 import Navbar from "./components/navbar/Navbar";
-import Loader from "./components/loader/Loader";
 import "./App.css";
-import Footer from "./components/footer/footer";
+import Footer from "./components/footer/Footer";
 
 const App = () => {
   return (
