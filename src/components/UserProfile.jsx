@@ -27,9 +27,12 @@ function App() {
   };
   const deleteEmployee = async () => {
     try {
-      const response = await fetch(`https://employeemanagementsystemnode.onrender.com/employee/${id}`, {
-        method: "DELETE",
-      });
+      const response = await fetch(
+        `https://employeemanagementsystemnode.onrender.com/employee/${id}`,
+        {
+          method: "DELETE",
+        }
+      );
       const res = await res.json();
       return res;
     } catch (error) {
@@ -150,10 +153,22 @@ function App() {
       <div className="profileSection-1">
         <div className="projectsCard">
           <h3 className="contactHeading">Projects</h3>
+
           <hr />
           {user.projects.map((project, index) => (
             <div key={index} className="project">
-              <h4 className="projectName">{project.projectName}</h4>
+              <div className="projectHeadingContainer">
+                <h4 className="projectName">{project.projectName}</h4>
+                <span>
+                  <a
+                    href={project.projectUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    View Project
+                  </a>
+                </span>
+              </div>
               <p className="contactCardDetails">
                 <strong>Role:</strong>{" "}
                 <span className="profilecardDetails">{project.role}</span>
@@ -176,13 +191,6 @@ function App() {
                   {project.projectYear}{" "}
                 </span>
               </p>
-              <a
-                href={project.projectUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Project URL
-              </a>
             </div>
           ))}
         </div>
@@ -249,12 +257,14 @@ function App() {
       <div className="buttonSection">
         <div></div>
         <div className="buttonContainer">
-          {console.log("status",user.active)}
+          {console.log("status", user.active)}
           <div
-            className={`activeBtnContainer ${activeBtn||user.active ? "" : "inactiveBtn"}`}
+            className={`activeBtnContainer ${
+              activeBtn || user.active ? "" : "inactiveBtn"
+            }`}
             onClick={handleActiveEmployee}
           >
-            {activeBtn||user.active? "Active" : "InActive"}
+            {activeBtn || user.active ? "Active" : "InActive"}
           </div>
           <div onClick={handleEdit} className={`activeBtnContainer editBtn`}>
             Edit
