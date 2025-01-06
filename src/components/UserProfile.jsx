@@ -107,19 +107,19 @@ function App() {
           <h3 className="contactHeading">Contact Details</h3>
           <hr />
           <p className="contactCardDetails">
-            <strong>Email :</strong>
+            <strong>Email:</strong>
             <span className="profilecardDetails">{user.email}</span>
           </p>
           <p className="contactCardDetails">
-            <strong>Phone :</strong>{" "}
+            <strong>Phone:</strong>{" "}
             <span className="profilecardDetails">{user.phone}</span>
           </p>
           <p className="contactCardDetails">
-            <strong>Address :</strong>{" "}
+            <strong>Address:</strong>{" "}
             <span className="profilecardDetails">{user.address}</span>
           </p>
           <p className="contactCardDetails">
-            <strong>Country :</strong>{" "}
+            <strong>Country:</strong>{" "}
             <span className="profilecardDetails">{user.country}</span>
           </p>
         </div>
